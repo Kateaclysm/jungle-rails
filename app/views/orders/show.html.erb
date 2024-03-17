@@ -1,13 +1,29 @@
 <section class="orders-show">
 
   <header class="page-header">
-    <h1>Order #<%= @order.id %></h1>
+    <h1>Order #<%= @order.id %>:</h1>
   </header>
+<div class="order-container">
+  <% @order.line_items.each do |line_item| %>
+    <div class="card" style="width: 18rem;">
+      <img src="<%= line_item.product.image.tiny %>" class="card-img-top img-fluid" alt="<%= line_item.product.name %>">
+      <div class="card-body">
+        <h5 class="card-title"><%= line_item.product.name %></h5>
+        <p class="card-text"><%= line_item.product.description %></p>
+        <p class="card-text">Quantity: <%= line_item.quantity %></p>
+        <p class="card-text">Total: <%= humanized_money_with_symbol line_item.total_price %></p>
+      </div>
+    </div>
+  <% end %>
+  <p class="h3"> Order Total: </p> <p class="h3"><strong> <%= humanized_money_with_symbol @order.total_cents %></p>
+  <p class="h3"> Email: </p> <p class="h5"> <strong> <%= @order.email %> </p>
+  
+</div>
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
   </div>
-
+  
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
 </section>
