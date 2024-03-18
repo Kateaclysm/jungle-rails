@@ -13,19 +13,37 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :show]
 
+  #=> Administrator Dashboard
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
   end
+
+  #=> Administrator Categories
  namespace :admin do
      resources :categories, only: [:index, :new, :create]
    end
+
+  #=> /Signup renders a form in the browser
+  get '/signup' => 'users#new'
+  #=> /users recieves form data and create a user in our database based on said data
+  post '/users' => 'users#create'
+
+
 
 
   #=> Clicking on the about link in the footer...
   get '/about', to: 'about#index'
 
+  #=> Routes for the sessions controller
 
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
+  
 
 
   # The priority is based upon order of creation: first created -> highest priority.
