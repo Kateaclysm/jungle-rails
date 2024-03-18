@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
   end
+ namespace :admin do
+     resources :categories, only: [:index, :new, :create]
+   end
 
 
   #=> Clicking on the about link in the footer...
