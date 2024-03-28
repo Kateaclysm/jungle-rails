@@ -4,8 +4,11 @@ class SessionsController < ApplicationController
   end
 
   def create
+    # Call the class method on User that you defined, which handles authentication logic.
+    user = User.authenticate_with_credentials(params[:email], params[:password])
+
     user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
+    if user
       session[:user_id] = user.id
       redirect_to '/'
     else
